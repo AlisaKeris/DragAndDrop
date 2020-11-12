@@ -43,9 +43,9 @@ namespace DragAndDrop
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
-            vid.Location = new Point(100,500);
-            forma.Location = new Point(300,500);
-            info.Location = new Point(500,500);
+            vid.Location = new Point(100,380);
+            forma.Location = new Point(300,380);
+            info.Location = new Point(500,380);
             info.Size = new Size(100, 100);
             forma.Size = new Size(100, 100);
             vid.Size = new Size(100, 100);
