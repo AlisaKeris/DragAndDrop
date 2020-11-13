@@ -14,10 +14,15 @@ namespace DragAndDrop
 {
     public partial class Form1 : Form
     {
-        Rectangle rect = new Rectangle(10,10,200,100);
-        Rectangle circ = new Rectangle(220, 10, 150, 150);
-        Rectangle sq = new Rectangle(380, 10, 150, 150);
-        Label vid, forma, info;
+        //Фигуры
+        Rectangle rect = new Rectangle(1000,1000,200,100);
+        Rectangle circ = new Rectangle(10, 200, 150, 150);
+        Rectangle sq = new Rectangle(1000, 1000, 150, 150);
+        Label forma, info;
+        //Поля для фигур
+        Rectangle circ2 = new Rectangle(220, 10, 140, 140);
+        Rectangle rect2 = new Rectangle(10, 10, 190, 90);
+        Rectangle sq2 = new Rectangle(380, 10, 140, 140);
         PictureBox pic;
         bool rectclick;
         bool sqclick ;
@@ -33,26 +38,21 @@ namespace DragAndDrop
         public Form1()
         {
             this.Height = 700;
-            this.Width = 850;
-            
-            vid = new Label { BorderStyle = BorderStyle.FixedSingle };
+            this.Width = 1000;
+
+            info = new Label();
             forma = new Label { BorderStyle = BorderStyle.FixedSingle };
-            info = new Label { BorderStyle = BorderStyle.FixedSingle };
-            pic = new PictureBox { Size = new Size(580,480), BorderStyle= BorderStyle.FixedSingle, Location = new Point(50,10)};
+            pic = new PictureBox { Size = new Size(650,600), BorderStyle= BorderStyle.FixedSingle, Location = new Point(50,10)};
             pic.Paint += Pic_Paint;
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
-            vid.Location = new Point(100,380);
-            forma.Location = new Point(300,380);
-            info.Location = new Point(500,380);
+            forma.Location = new Point(300,500);
+            info.Location = new Point(500,500);
             info.Size = new Size(100, 100);
             forma.Size = new Size(100, 100);
-            vid.Size = new Size(100, 100);
-            vid.Text = "вид";
-            info.Text = "информация";
+            info.Text = " ";
             forma.Text = "форма";
-            this.Controls.Add(vid);
             this.Controls.Add(forma);
             this.Controls.Add(info);
             this.Controls.Add(pic);
@@ -76,25 +76,67 @@ namespace DragAndDrop
                 sq.X = e.X - xsq;
                 sq.Y = e.Y - ysq;
             }
-            if ((vid.Location.X<sq.X +sq.Width) && (vid.Location.X > sq.X))
+            if ((sq2.Location.X<sq.X +sq.Width) && (sq2.Location.X > sq.X))
             {
-                if((vid.Location.Y<sq.Y+sq.Height) && (vid.Location.Y > sq.Y))
+                if((sq2.Location.Y<sq.Y+sq.Height) && (sq2.Location.Y > sq.Y))
                 {
-                    info.Text = "Синий квадрат";
+                    info.Text = "Правильно! Квадрат";
                 }
             }
-            if ((vid.Location.X < circ.X + circ.Width) && (vid.Location.X > circ.X))
+            if ((circ2.Location.X < circ.X + circ.Width) && (circ2.Location.X > circ.X))
             {
-                if ((vid.Location.Y < circ.Y + circ.Height) && (vid.Location.Y > circ.Y))
+                if ((circ2.Location.Y < circ.Y + circ.Height) && (circ2.Location.Y > circ.Y))
                 {
-                    info.Text = "Красный круг";
+                    info.Text = "Правильно! Круг";
                 }
             }
-            if ((vid.Location.X < rect.X + rect.Width) && (vid.Location.X > rect.X))
+            if ((rect2.Location.X < rect.X + rect.Width) && (rect2.Location.X > rect.X))
             {
-                if ((vid.Location.Y < rect.Y + rect.Height) && (vid.Location.Y > rect.Y))
+                if ((rect2.Location.Y < rect.Y + rect.Height) && (rect2.Location.Y > rect.Y))
                 {
-                    info.Text = "Желтый прямоугольник";
+                    info.Text = "Правильно! Прямоугольник";
+                }
+            } //Проверка для формы квадрата
+            if ((sq2.Location.X < rect.X + rect.Width) && (sq2.Location.X > rect.X))
+            {
+                if ((sq2.Location.Y < rect.Y + rect.Height) && (sq2.Location.Y > rect.Y))
+                {
+                    info.Text = "Неправильно! ";
+                }
+            }
+            if ((sq2.Location.X < circ.X + circ.Width) && (sq2.Location.X > circ.X))
+            {
+                if ((sq2.Location.Y < circ.Y + circ.Height) && (sq2.Location.Y > circ.Y))
+                {
+                    info.Text = "Неправильно! ";
+                }
+            }//Проверка для формы круга
+            if ((circ2.Location.X < rect.X + rect.Width) && (circ2.Location.X > rect.X))
+            {
+                if ((circ2.Location.Y < rect.Y + rect.Height) && (circ2.Location.Y > rect.Y))
+                {
+                    info.Text = "Неправильно! ";
+                }
+            }
+            if ((circ2.Location.X < sq.X + sq.Width) && (circ2.Location.X > sq.X))
+            {
+                if ((circ2.Location.Y < sq.Y + sq.Height) && (circ2.Location.Y > sq.Y))
+                {
+                    info.Text = "Неправильно! ";
+                }
+            }//Проверка для формы прямоугольника
+            if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X))
+            {
+                if ((rect2.Location.Y < circ.Y + circ.Height) && (rect2.Location.Y > circ.Y))
+                {
+                    info.Text = "Неправильно! ";
+                }
+            }
+            if ((rect2.Location.X < sq.X + sq.Width) && (rect2.Location.X > sq.X))
+            {
+                if ((rect2.Location.Y < sq.Y + sq.Height) && (rect2.Location.Y > sq.Y))
+                {
+                    info.Text = "Неправильно! ";
                 }
             }
             pic.Invalidate();
@@ -144,6 +186,7 @@ namespace DragAndDrop
                         sq.Y = y;
                         xsq = dx;
                         ysq = dy;
+                        
                     }
                 }
             }
@@ -178,14 +221,15 @@ namespace DragAndDrop
                         y = rect.Y;
                         dx = xrect;
                         dy = yrect;
-                        rect.X = sq.X;
-                        rect.Y = sq.Y;
-                        xrect = xsq;
-                        yrect = ysq;
-                        sq.X = x;
-                        sq.Y = y;
-                        xsq = dx;
-                        ysq = dy;
+                        rect.X = circ.X;
+                        rect.Y = circ.Y;
+                        xrect = xcirc;
+                        yrect = ycirc;
+                        circ.X = x;
+                        circ.Y = y;
+                        xcirc = dx;
+                        ycirc = dy;
+                        
                     }
                 }
             }
@@ -227,6 +271,10 @@ namespace DragAndDrop
             e.Graphics.FillEllipse(Brushes.Red, circ);
             e.Graphics.FillRectangle(Brushes.Blue, sq);
             e.Graphics.FillRectangle(Brushes.Yellow, rect);
+            e.Graphics.FillEllipse(Brushes.LightGray, circ2);
+            e.Graphics.FillRectangle(Brushes.LightGray, rect2);
+            e.Graphics.FillRectangle(Brushes.LightGray, sq2);
+            
         }
     }
 }
