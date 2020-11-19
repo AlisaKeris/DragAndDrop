@@ -20,10 +20,11 @@ namespace DragAndDrop
         Rectangle sq = new Rectangle(1000, 1000, 150, 150);
         Label forma, info;
         //Поля для фигур
-        Rectangle circ2 = new Rectangle(220, 10, 140, 140);
-        Rectangle rect2 = new Rectangle(10, 10, 190, 90);
-        Rectangle sq2 = new Rectangle(380, 10, 140, 140);
+        Rectangle circ2 = new Rectangle(250, 10, 140, 140);
+        Rectangle rect2 = new Rectangle(10, 35, 190, 90);
+        Rectangle sq2 = new Rectangle(450, 10, 140, 140);
         PictureBox pic;
+        
         bool rectclick;
         bool sqclick ;
         bool circclick ;
@@ -39,23 +40,28 @@ namespace DragAndDrop
         {
             this.Height = 700;
             this.Width = 1000;
-
-            info = new Label();
-            forma = new Label { BorderStyle = BorderStyle.FixedSingle };
+            
+            info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
+            forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor=Color.DarkBlue ,TextAlign = System.Drawing.ContentAlignment.MiddleCenter,BackColor=Color.BlanchedAlmond};
+            
             pic = new PictureBox { Size = new Size(650,600), BorderStyle= BorderStyle.FixedSingle, Location = new Point(50,10)};
             pic.Paint += Pic_Paint;
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
+            
             forma.Location = new Point(300,500);
             info.Location = new Point(500,500);
-            info.Size = new Size(100, 100);
-            forma.Size = new Size(100, 100);
+            info.Size = new Size(100, 50);
+            forma.Size = new Size(100, 50);
+            
             info.Text = " ";
-            forma.Text = "форма";
+            forma.Text = "Ф О Р М А";
             this.Controls.Add(forma);
             this.Controls.Add(info);
             this.Controls.Add(pic);
+
+
 
         }
 
@@ -88,7 +94,7 @@ namespace DragAndDrop
             {
                 if ((circ2.Location.Y < circ.Y + circ.Height) && (circ2.Location.Y > circ.Y))
                 {
-                    info.Text = "Правильно! Круг";
+                    info.Text = "Молодец! Круг";
                     info.ForeColor = Color.Green;
                 }
             }
@@ -96,7 +102,7 @@ namespace DragAndDrop
             {
                 if ((rect2.Location.Y < rect.Y + rect.Height) && (rect2.Location.Y > rect.Y))
                 {
-                    info.Text = "Правильно! Прямоугольник";
+                    info.Text = "Умница! Прямоугольник";
                     info.ForeColor = Color.Green;
                 }
             } //Проверка для формы квадрата
@@ -104,7 +110,7 @@ namespace DragAndDrop
             {
                 if ((sq2.Location.Y < rect.Y + rect.Height) && (sq2.Location.Y > rect.Y))
                 {
-                    info.Text = "Неправильно! ";
+                    info.Text = "Это сюда не подходит!";
                     info.ForeColor = Color.Red;
                 }
             }
@@ -120,7 +126,7 @@ namespace DragAndDrop
             {
                 if ((circ2.Location.Y < rect.Y + rect.Height) && (circ2.Location.Y > rect.Y))
                 {
-                    info.Text = "Неправильно! ";
+                    info.Text = "Нет! ";
                     info.ForeColor = Color.Red;
                 }
             }
@@ -144,14 +150,14 @@ namespace DragAndDrop
             {
                 if ((rect2.Location.Y < sq.Y + sq.Height) && (rect2.Location.Y > sq.Y))
                 {
-                    info.Text = "Неправильно! ";
+                    info.Text = "Подумай еще! ";
                     info.ForeColor = Color.Red;
                 }
             }
             pic.Invalidate();
         }
 
-        private void Pic_MouseUp(object sender, MouseEventArgs e)
+        private void Pic_MouseUp(object sender, MouseEventArgs e) //изменение формы
         {
             rectclick = false;
             sqclick = false;
@@ -179,9 +185,9 @@ namespace DragAndDrop
             }
             if (lastclick == 2)
             {
-                if((forma.Location.X < circ.X + circ.Width) && (forma.Location.X > circ.X))
+                if ((forma.Location.X < circ.X + circ.Width) && (forma.Location.X > circ.X))
                 {
-                    if((forma.Location.Y <  circ.Y + circ.Height) && (forma.Location.Y > circ.Y))
+                    if ((forma.Location.Y < circ.Y + circ.Height) && (forma.Location.Y > circ.Y))
                     {
                         x = circ.X;
                         y = circ.Y;
@@ -195,7 +201,7 @@ namespace DragAndDrop
                         sq.Y = y;
                         xsq = dx;
                         ysq = dy;
-                        
+
                     }
                 }
             }
@@ -238,10 +244,11 @@ namespace DragAndDrop
                         circ.Y = y;
                         xcirc = dx;
                         ycirc = dy;
-                        
+
                     }
                 }
             }
+
         }
 
         private void Pic_MouseDown(object sender, MouseEventArgs e)
