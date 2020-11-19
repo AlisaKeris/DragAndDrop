@@ -81,6 +81,7 @@ namespace DragAndDrop
                 if((sq2.Location.Y<sq.Y+sq.Height) && (sq2.Location.Y > sq.Y))
                 {
                     info.Text = "Правильно! Квадрат";
+                    info.ForeColor = Color.Green;
                 }
             }
             if ((circ2.Location.X < circ.X + circ.Width) && (circ2.Location.X > circ.X))
@@ -88,6 +89,7 @@ namespace DragAndDrop
                 if ((circ2.Location.Y < circ.Y + circ.Height) && (circ2.Location.Y > circ.Y))
                 {
                     info.Text = "Правильно! Круг";
+                    info.ForeColor = Color.Green;
                 }
             }
             if ((rect2.Location.X < rect.X + rect.Width) && (rect2.Location.X > rect.X))
@@ -95,6 +97,7 @@ namespace DragAndDrop
                 if ((rect2.Location.Y < rect.Y + rect.Height) && (rect2.Location.Y > rect.Y))
                 {
                     info.Text = "Правильно! Прямоугольник";
+                    info.ForeColor = Color.Green;
                 }
             } //Проверка для формы квадрата
             if ((sq2.Location.X < rect.X + rect.Width) && (sq2.Location.X > rect.X))
@@ -102,6 +105,7 @@ namespace DragAndDrop
                 if ((sq2.Location.Y < rect.Y + rect.Height) && (sq2.Location.Y > rect.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }
             if ((sq2.Location.X < circ.X + circ.Width) && (sq2.Location.X > circ.X))
@@ -109,6 +113,7 @@ namespace DragAndDrop
                 if ((sq2.Location.Y < circ.Y + circ.Height) && (sq2.Location.Y > circ.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }//Проверка для формы круга
             if ((circ2.Location.X < rect.X + rect.Width) && (circ2.Location.X > rect.X))
@@ -116,6 +121,7 @@ namespace DragAndDrop
                 if ((circ2.Location.Y < rect.Y + rect.Height) && (circ2.Location.Y > rect.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }
             if ((circ2.Location.X < sq.X + sq.Width) && (circ2.Location.X > sq.X))
@@ -123,6 +129,7 @@ namespace DragAndDrop
                 if ((circ2.Location.Y < sq.Y + sq.Height) && (circ2.Location.Y > sq.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }//Проверка для формы прямоугольника
             if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X))
@@ -130,6 +137,7 @@ namespace DragAndDrop
                 if ((rect2.Location.Y < circ.Y + circ.Height) && (rect2.Location.Y > circ.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }
             if ((rect2.Location.X < sq.X + sq.Width) && (rect2.Location.X > sq.X))
@@ -137,6 +145,7 @@ namespace DragAndDrop
                 if ((rect2.Location.Y < sq.Y + sq.Height) && (rect2.Location.Y > sq.Y))
                 {
                     info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
                 }
             }
             pic.Invalidate();
