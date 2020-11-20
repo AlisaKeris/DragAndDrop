@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,48 +15,53 @@ namespace DragAndDrop
     public partial class Form1 : Form
     {
         //Фигуры
-        Rectangle rect = new Rectangle(1000,1000,200,100);
-        Rectangle circ = new Rectangle(10, 200, 150, 150);
-        Rectangle sq = new Rectangle(1000, 1000, 150, 150);
+        Rectangle rect = new Rectangle(1000,1000,180,80);
+        Rectangle circ = new Rectangle(10, 200, 130, 130);
+        Rectangle sq = new Rectangle(1000, 1000, 130, 130);
+        Rectangle ov = new Rectangle(1000, 1000, 180, 80);
         Label forma, info;
         //Поля для фигур
-        Rectangle circ2 = new Rectangle(250, 10, 140, 140);
-        Rectangle rect2 = new Rectangle(10, 35, 190, 90);
-        Rectangle sq2 = new Rectangle(450, 10, 140, 140);
+        Rectangle circ2 = new Rectangle(250, 30, 120, 120);
+        Rectangle rect2 = new Rectangle(30, 50, 170, 70);
+        Rectangle sq2 = new Rectangle(410, 30, 120, 120);
+        Rectangle ov2 = new Rectangle(560, 40, 170, 100);
         PictureBox pic;
         
         bool rectclick;
         bool sqclick ;
         bool circclick ;
+        bool ovclick;
         int xrect= 0;
         int yrect = 0;
         int xcirc = 0;
         int ycirc = 0;
         int xsq = 0;
         int ysq = 0;
+        int xov = 0;
+        int yov = 0;
         int x, y, dx, dy;
         int lastclick = 0;
         public Form1()
         {
             this.Height = 700;
-            this.Width = 1000;
+            this.Width = 1100;
             
             info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
             forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor=Color.DarkBlue ,TextAlign = System.Drawing.ContentAlignment.MiddleCenter,BackColor=Color.BlanchedAlmond};
             
-            pic = new PictureBox { Size = new Size(650,600), BorderStyle= BorderStyle.FixedSingle, Location = new Point(50,10)};
+            pic = new PictureBox { Size = new Size(800,550),  Location = new Point(50,30)};
             pic.Paint += Pic_Paint;
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
             
             forma.Location = new Point(300,500);
-            info.Location = new Point(500,500);
-            info.Size = new Size(100, 50);
+            info.Location = new Point(800,200);
+            info.Size = new Size(200, 150);
             forma.Size = new Size(100, 50);
             
             info.Text = " ";
-            forma.Text = "Ф О Р М А";
+            forma.Text = "П О М Е Н Я Й   Ф О Р М У";
             this.Controls.Add(forma);
             this.Controls.Add(info);
             this.Controls.Add(pic);
@@ -82,6 +87,11 @@ namespace DragAndDrop
                 sq.X = e.X - xsq;
                 sq.Y = e.Y - ysq;
             }
+            if (ovclick)
+            {
+                ov.X = e.X - xov;
+                ov.Y = e.Y - yov;
+            }
             if ((sq2.Location.X<sq.X +sq.Width) && (sq2.Location.X > sq.X))
             {
                 if((sq2.Location.Y<sq.Y+sq.Height) && (sq2.Location.Y > sq.Y))
@@ -103,6 +113,14 @@ namespace DragAndDrop
                 if ((rect2.Location.Y < rect.Y + rect.Height) && (rect2.Location.Y > rect.Y))
                 {
                     info.Text = "Умница! Прямоугольник";
+                    info.ForeColor = Color.Green;
+                }
+            }
+            if ((ov2.Location.X < ov.X + ov.Width) && (ov2.Location.X > ov.X))
+            {
+                if ((ov2.Location.Y < ov.Y + ov.Height) && (ov2.Location.Y > ov.Y))
+                {
+                    info.Text = "Умница! Овал";
                     info.ForeColor = Color.Green;
                 }
             } //Проверка для формы квадрата
@@ -138,7 +156,7 @@ namespace DragAndDrop
                     info.ForeColor = Color.Red;
                 }
             }//Проверка для формы прямоугольника
-            if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X))
+            if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X) )
             {
                 if ((rect2.Location.Y < circ.Y + circ.Height) && (rect2.Location.Y > circ.Y))
                 {
@@ -183,7 +201,14 @@ namespace DragAndDrop
                     lastclick = 1;
                 }
             }
-            if (lastclick == 2)
+            if ((forma.Location.X < ov.X + ov.Width) && (forma.Location.X > ov.X))
+            {
+                if ((forma.Location.Y < ov.Y + ov.Height) && (forma.Location.Y > ov.Y))
+                {
+                    lastclick = 4;
+                }
+            }
+            if (lastclick == 2) //круг меняется на квадрат
             {
                 if ((forma.Location.X < circ.X + circ.Width) && (forma.Location.X > circ.X))
                 {
@@ -201,11 +226,10 @@ namespace DragAndDrop
                         sq.Y = y;
                         xsq = dx;
                         ysq = dy;
-
                     }
                 }
             }
-            if (lastclick == 3)
+            if (lastclick == 3) //квадрат меняется на прямоугольник
             {
                 if ((forma.Location.X < sq.X + sq.Width) && (forma.Location.X > sq.X))
                 {
@@ -226,7 +250,7 @@ namespace DragAndDrop
                     }
                 }
             }
-            if (lastclick == 1)
+            if (lastclick == 1) //прямоугольник меняется на овал
             {
                 if ((forma.Location.X < rect.X + rect.Width) && (forma.Location.X > rect.X))
                 {
@@ -236,10 +260,32 @@ namespace DragAndDrop
                         y = rect.Y;
                         dx = xrect;
                         dy = yrect;
-                        rect.X = circ.X;
-                        rect.Y = circ.Y;
-                        xrect = xcirc;
-                        yrect = ycirc;
+                        rect.X = ov.X;
+                        rect.Y = ov.Y;
+                        xrect = xov;
+                        yrect = yov;
+                        ov.X = x;
+                        ov.Y = y;
+                        xov = dx;
+                        yov = dy;
+                        
+                    }
+                }
+            }
+            if (lastclick == 4) //овал меняется на круг
+            {
+                if ((forma.Location.X < ov.X + ov.Width) && (forma.Location.X > ov.X))
+                {
+                    if ((forma.Location.Y < ov.Y + ov.Height) && (forma.Location.Y > ov.Y))
+                    {
+                        x = ov.X;
+                        y = ov.Y;
+                        dx = xov;
+                        dy = yov;
+                        ov.X = circ.X;
+                        ov.Y = circ.Y;
+                        xov = xcirc;
+                        yov = ycirc;
                         circ.X = x;
                         circ.Y = y;
                         xcirc = dx;
@@ -290,7 +336,10 @@ namespace DragAndDrop
             e.Graphics.FillEllipse(Brushes.LightGray, circ2);
             e.Graphics.FillRectangle(Brushes.LightGray, rect2);
             e.Graphics.FillRectangle(Brushes.LightGray, sq2);
-            
+            e.Graphics.FillEllipse(Brushes.LightGray, ov2);
+            e.Graphics.FillEllipse(Brushes.CornflowerBlue, ov);
+
+
         }
     }
 }
