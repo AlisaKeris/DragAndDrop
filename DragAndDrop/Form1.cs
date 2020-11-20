@@ -15,23 +15,23 @@ namespace DragAndDrop
     public partial class Form1 : Form
     {
         //Фигуры
-        Rectangle rect = new Rectangle(1000,1000,180,80);
+        Rectangle rect = new Rectangle(1000, 1000, 180, 80);
         Rectangle circ = new Rectangle(10, 200, 130, 130);
         Rectangle sq = new Rectangle(1000, 1000, 130, 130);
-        Rectangle ov = new Rectangle(1000, 1000, 180, 80);
+        Rectangle ov = new Rectangle(1000, 1000, 180, 100);
         Label forma, info;
         //Поля для фигур
         Rectangle circ2 = new Rectangle(250, 30, 120, 120);
         Rectangle rect2 = new Rectangle(30, 50, 170, 70);
         Rectangle sq2 = new Rectangle(410, 30, 120, 120);
-        Rectangle ov2 = new Rectangle(560, 40, 170, 100);
+        Rectangle ov2 = new Rectangle(560, 40, 170, 90);
         PictureBox pic;
-        
+
         bool rectclick;
-        bool sqclick ;
-        bool circclick ;
+        bool sqclick;
+        bool circclick;
         bool ovclick;
-        int xrect= 0;
+        int xrect = 0;
         int yrect = 0;
         int xcirc = 0;
         int ycirc = 0;
@@ -44,22 +44,23 @@ namespace DragAndDrop
         public Form1()
         {
             this.Height = 700;
-            this.Width = 1100;
-            
+            this.Width = 900;
+            this.Text = "Игра с фигурами";
+
             info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
-            forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor=Color.DarkBlue ,TextAlign = System.Drawing.ContentAlignment.MiddleCenter,BackColor=Color.BlanchedAlmond};
-            
-            pic = new PictureBox { Size = new Size(800,550),  Location = new Point(50,30)};
+            forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.DarkBlue, TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = Color.BlanchedAlmond };
+
+            pic = new PictureBox { Size = new Size(800, 550), Location = new Point(50, 30) };
             pic.Paint += Pic_Paint;
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
-            
-            forma.Location = new Point(300,500);
-            info.Location = new Point(800,200);
-            info.Size = new Size(200, 150);
+
+            forma.Location = new Point(300, 500);
+            info.Location = new Point(500, 450);
+            info.Size = new Size(100, 50);
             forma.Size = new Size(100, 50);
-            
+
             info.Text = " ";
             forma.Text = "П О М Е Н Я Й   Ф О Р М У";
             this.Controls.Add(forma);
@@ -92,9 +93,9 @@ namespace DragAndDrop
                 ov.X = e.X - xov;
                 ov.Y = e.Y - yov;
             }
-            if ((sq2.Location.X<sq.X +sq.Width) && (sq2.Location.X > sq.X))
+            if ((sq2.Location.X < sq.X + sq.Width) && (sq2.Location.X > sq.X))
             {
-                if((sq2.Location.Y<sq.Y+sq.Height) && (sq2.Location.Y > sq.Y))
+                if ((sq2.Location.Y < sq.Y + sq.Height) && (sq2.Location.Y > sq.Y))
                 {
                     info.Text = "Правильно! Квадрат";
                     info.ForeColor = Color.Green;
@@ -139,6 +140,14 @@ namespace DragAndDrop
                     info.Text = "Неправильно! ";
                     info.ForeColor = Color.Red;
                 }
+            }
+            if ((sq2.Location.X < ov.X + ov.Width) && (sq2.Location.X > ov.X))
+            {
+                if ((sq2.Location.Y < ov.Y + ov.Height) && (sq2.Location.Y > ov.Y))
+                {
+                    info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
+                }
             }//Проверка для формы круга
             if ((circ2.Location.X < rect.X + rect.Width) && (circ2.Location.X > rect.X))
             {
@@ -155,8 +164,16 @@ namespace DragAndDrop
                     info.Text = "Неправильно! ";
                     info.ForeColor = Color.Red;
                 }
+            }
+            if ((circ2.Location.X < ov.X + ov.Width) && (circ2.Location.X > ov.X))
+            {
+                if ((circ2.Location.Y < ov.Y + ov.Height) && (circ2.Location.Y > ov.Y))
+                {
+                    info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
+                }
             }//Проверка для формы прямоугольника
-            if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X) )
+            if ((rect2.Location.X < circ.X + circ.Width) && (rect2.Location.X > circ.X))
             {
                 if ((rect2.Location.Y < circ.Y + circ.Height) && (rect2.Location.Y > circ.Y))
                 {
@@ -172,6 +189,39 @@ namespace DragAndDrop
                     info.ForeColor = Color.Red;
                 }
             }
+            if ((rect2.Location.X < ov.X + ov.Width) && (rect2.Location.X > ov.X))
+            {
+                if ((rect2.Location.Y < ov.Y + ov.Height) && (rect2.Location.Y > ov.Y))
+                {
+                    info.Text = "Подумай еще! ";
+                    info.ForeColor = Color.Red;
+                }
+            }
+            //Проверка для формы овала
+            if ((ov2.Location.X < circ.X + circ.Width) && (ov2.Location.X > circ.X))
+            {
+                if ((ov2.Location.Y < circ.Y + circ.Height) && (ov2.Location.Y > circ.Y))
+                {
+                    info.Text = "Неправильно! ";
+                    info.ForeColor = Color.Red;
+                }
+            }
+            if ((ov2.Location.X < sq.X + sq.Width) && (ov2.Location.X > sq.X))
+            {
+                if ((ov2.Location.Y < sq.Y + sq.Height) && (ov2.Location.Y > sq.Y))
+                {
+                    info.Text = "Подумай еще! ";
+                    info.ForeColor = Color.Red;
+                }
+            }
+            if ((ov2.Location.X < rect.X + ov.Width) && (ov2.Location.X > rect.X))
+            {
+                if ((ov2.Location.Y < rect.Y + rect.Height) && (ov2.Location.Y > rect.Y))
+                {
+                    info.Text = "Подумай еще! ";
+                    info.ForeColor = Color.Red;
+                }
+            }
             pic.Invalidate();
         }
 
@@ -180,6 +230,7 @@ namespace DragAndDrop
             rectclick = false;
             sqclick = false;
             circclick = false;
+            ovclick = false;
             if ((forma.Location.X < sq.X + sq.Width) && (forma.Location.X > sq.X))
             {
                 if ((forma.Location.Y < sq.Y + sq.Height) && (forma.Location.Y > sq.Y))
@@ -268,7 +319,7 @@ namespace DragAndDrop
                         ov.Y = y;
                         xov = dx;
                         yov = dy;
-                        
+
                     }
                 }
             }
@@ -299,9 +350,9 @@ namespace DragAndDrop
 
         private void Pic_MouseDown(object sender, MouseEventArgs e)
         {
-            if((e.X < rect.X + rect.Width) && (e.X > rect.X))
+            if ((e.X < rect.X + rect.Width) && (e.X > rect.X))
             {
-                if((e.Y<rect.Y+rect.Height) && (e.Y > rect.Y))
+                if ((e.Y < rect.Y + rect.Height) && (e.Y > rect.Y))
                 {
                     rectclick = true;
                     xrect = e.X - rect.X;
@@ -326,18 +377,28 @@ namespace DragAndDrop
                     ysq = e.Y - sq.Y;
                 }
             }
+            if ((e.X < ov.X + sq.Width) && (e.X > ov.X))
+            {
+                if ((e.Y < ov.Y + ov.Height) && (e.Y > ov.Y))
+                {
+                    ovclick = true;
+                    xov = e.X - ov.X;
+                    yov = e.Y - ov.Y;
+                }
+            }
         }
 
         private void Pic_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(Brushes.Red, circ);
-            e.Graphics.FillRectangle(Brushes.Blue, sq);
-            e.Graphics.FillRectangle(Brushes.Yellow, rect);
             e.Graphics.FillEllipse(Brushes.LightGray, circ2);
             e.Graphics.FillRectangle(Brushes.LightGray, rect2);
             e.Graphics.FillRectangle(Brushes.LightGray, sq2);
             e.Graphics.FillEllipse(Brushes.LightGray, ov2);
-            e.Graphics.FillEllipse(Brushes.CornflowerBlue, ov);
+            e.Graphics.FillEllipse(Brushes.Red, circ);
+            e.Graphics.FillRectangle(Brushes.Blue, sq);
+            e.Graphics.FillRectangle(Brushes.Yellow, rect);
+            
+            e.Graphics.FillEllipse(Brushes.BlueViolet, ov);
 
 
         }
