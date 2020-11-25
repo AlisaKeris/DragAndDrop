@@ -57,8 +57,8 @@ namespace DragAndDrop
             pic.MouseMove += Pic_MouseMove;
 
             forma.Location = new Point(300, 500);
-            info.Location = new Point(500, 450);
-            info.Size = new Size(100, 50);
+            info.Location = new Point(600, 450);
+            info.Size = new Size(130, 20);
             forma.Size = new Size(100, 50);
 
             info.Text = " ";
