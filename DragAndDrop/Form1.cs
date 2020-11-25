@@ -19,7 +19,7 @@ namespace DragAndDrop
         Rectangle circ = new Rectangle(10, 200, 130, 130);
         Rectangle sq = new Rectangle(1000, 1000, 130, 130);
         Rectangle ov = new Rectangle(1000, 1000, 180, 100);
-        Label forma, info;
+        Label forma, info, lbl;
         //Поля для фигур
         Rectangle circ2 = new Rectangle(250, 30, 120, 120);
         Rectangle rect2 = new Rectangle(30, 50, 170, 70);
@@ -46,7 +46,7 @@ namespace DragAndDrop
             this.Height = 700;
             this.Width = 900;
             this.Text = "Игра с фигурами";
-
+            lbl = new Label { Text = "Поставь фигуры в правильные места", ForeColor = Color.Red };
             info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
             forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.DarkBlue, TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = Color.BlanchedAlmond };
 
@@ -55,17 +55,18 @@ namespace DragAndDrop
             pic.MouseDown += Pic_MouseDown;
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
-
+            lbl.Location = new Point(320, 15);
             forma.Location = new Point(300, 500);
             info.Location = new Point(600, 450);
             info.Size = new Size(130, 20);
             forma.Size = new Size(100, 50);
-
+            lbl.Size = new Size(200, 20);
             info.Text = " ";
             forma.Text = "П О М Е Н Я Й   Ф О Р М У";
             this.Controls.Add(forma);
             this.Controls.Add(info);
             this.Controls.Add(pic);
+            this.Controls.Add(lbl);
 
 
 
