@@ -14,6 +14,8 @@ namespace DragAndDrop
 {
     public partial class Form1 : Form
     {
+        Random rnd = new Random();
+        
         //Фигуры
         Rectangle rect = new Rectangle(1000, 1000, 180, 80);
         Rectangle circ = new Rectangle(10, 200, 130, 130);
@@ -43,10 +45,10 @@ namespace DragAndDrop
         int lastclick = 0;
         public Form1()
         {
-            this.Height = 700;
+            this.Height = 600;
             this.Width = 900;
             this.Text = "Игра с фигурами";
-            lbl = new Label { Text = "Поставь фигуры в правильные места", ForeColor = Color.Red };
+            lbl = new Label { Text = "Поставь фигуры в правильные места", ForeColor = Color.DarkBlue };
             info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
             forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.DarkBlue, TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = Color.BlanchedAlmond };
 
@@ -56,10 +58,10 @@ namespace DragAndDrop
             pic.MouseUp += Pic_MouseUp;
             pic.MouseMove += Pic_MouseMove;
             lbl.Location = new Point(320, 15);
-            forma.Location = new Point(300, 500);
+            forma.Location = new Point(300, 400);
             info.Location = new Point(600, 450);
             info.Size = new Size(130, 20);
-            forma.Size = new Size(100, 50);
+            forma.Size = new Size(160, 100);
             lbl.Size = new Size(200, 20);
             info.Text = " ";
             forma.Text = "П О М Е Н Я Й   Ф О Р М У";
@@ -67,8 +69,9 @@ namespace DragAndDrop
             this.Controls.Add(info);
             this.Controls.Add(pic);
             this.Controls.Add(lbl);
-
-
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
 
         }
 
@@ -388,19 +391,24 @@ namespace DragAndDrop
                 }
             }
         }
-
-        private void Pic_Paint(object sender, PaintEventArgs e)
+        void Pic_Paint(object sender, PaintEventArgs e)
         {
+            
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
+            SolidBrush rndcolor = new SolidBrush(Color.FromArgb(r, g, b));
+
             e.Graphics.FillEllipse(Brushes.LightGray, circ2);
             e.Graphics.FillRectangle(Brushes.LightGray, rect2);
             e.Graphics.FillRectangle(Brushes.LightGray, sq2);
             e.Graphics.FillEllipse(Brushes.LightGray, ov2);
-            e.Graphics.FillEllipse(Brushes.Red, circ);
-            e.Graphics.FillRectangle(Brushes.Blue, sq);
-            e.Graphics.FillRectangle(Brushes.Yellow, rect);
             
-            e.Graphics.FillEllipse(Brushes.BlueViolet, ov);
-
+            e.Graphics.FillEllipse(rndcolor, circ);
+            e.Graphics.FillRectangle(rndcolor, sq);
+            e.Graphics.FillRectangle(rndcolor, rect);
+            
+            e.Graphics.FillEllipse(rndcolor, ov);
 
         }
     }
