@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,7 +15,7 @@ namespace DragAndDrop
 {
     public partial class Form1 : Form
     {
-        Random rnd = new Random();
+        
         
         //Фигуры
         Rectangle rect = new Rectangle(1000, 1000, 180, 80);
@@ -28,7 +29,7 @@ namespace DragAndDrop
         Rectangle sq2 = new Rectangle(410, 30, 120, 120);
         Rectangle ov2 = new Rectangle(560, 40, 170, 90);
         PictureBox pic;
-
+        
         bool rectclick;
         bool sqclick;
         bool circclick;
@@ -43,6 +44,7 @@ namespace DragAndDrop
         int yov = 0;
         int x, y, dx, dy;
         int lastclick = 0;
+        Random rnd = new Random();
         public Form1()
         {
             this.Height = 600;
@@ -51,7 +53,6 @@ namespace DragAndDrop
             lbl = new Label { Text = "Поставь фигуры в правильные места", ForeColor = Color.DarkBlue };
             info = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleCenter };
             forma = new Label { BorderStyle = BorderStyle.FixedSingle, ForeColor = Color.DarkBlue, TextAlign = System.Drawing.ContentAlignment.MiddleCenter, BackColor = Color.BlanchedAlmond };
-
             pic = new PictureBox { Size = new Size(800, 550), Location = new Point(50, 30) };
             pic.Paint += Pic_Paint;
             pic.MouseDown += Pic_MouseDown;
@@ -69,10 +70,8 @@ namespace DragAndDrop
             this.Controls.Add(info);
             this.Controls.Add(pic);
             this.Controls.Add(lbl);
-            int r = rnd.Next(256);
-            int g = rnd.Next(256);
-            int b = rnd.Next(256);
-
+            
+            
         }
 
         private void Pic_MouseMove(object sender, MouseEventArgs e)
@@ -235,7 +234,7 @@ namespace DragAndDrop
             sqclick = false;
             circclick = false;
             ovclick = false;
-            if ((forma.Location.X < sq.X + sq.Width) && (forma.Location.X > sq.X))
+               if ((forma.Location.X < sq.X + sq.Width) && (forma.Location.X > sq.X))
             {
                 if ((forma.Location.Y < sq.Y + sq.Height) && (forma.Location.Y > sq.Y))
                 {
@@ -391,13 +390,9 @@ namespace DragAndDrop
                 }
             }
         }
-        void Pic_Paint(object sender, PaintEventArgs e)
+        public void Pic_Paint(object sender, PaintEventArgs e)
         {
-            
-            int r = rnd.Next(256);
-            int g = rnd.Next(256);
-            int b = rnd.Next(256);
-            SolidBrush rndcolor = new SolidBrush(Color.FromArgb(r, g, b));
+            SolidBrush rndcolor = new SolidBrush(Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)));
 
             e.Graphics.FillEllipse(Brushes.LightGray, circ2);
             e.Graphics.FillRectangle(Brushes.LightGray, rect2);
@@ -409,6 +404,7 @@ namespace DragAndDrop
             e.Graphics.FillRectangle(rndcolor, rect);
             
             e.Graphics.FillEllipse(rndcolor, ov);
+            
 
         }
     }
